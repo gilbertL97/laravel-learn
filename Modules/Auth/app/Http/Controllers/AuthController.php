@@ -12,15 +12,9 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('auth::index');
-    }
+        //
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('auth::create');
+        return response()->json([]);
     }
 
     /**
@@ -29,6 +23,8 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         //
+
+        return response()->json([]);
     }
 
     /**
@@ -36,15 +32,9 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        return view('auth::show');
-    }
+        //
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('auth::edit');
+        return response()->json([]);
     }
 
     /**
@@ -53,6 +43,8 @@ class AuthController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        return response()->json([]);
     }
 
     /**
@@ -61,5 +53,7 @@ class AuthController extends Controller
     public function destroy($id)
     {
         //
+
+        return response()->json([]);
     }
 }
