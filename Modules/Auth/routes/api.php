@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\Auth\Http\Middleware\AuthMiddleware;
 use Modules\Auth\Http\Middleware\CanAccesUser;
 
 /*
@@ -15,8 +16,11 @@ use Modules\Auth\Http\Middleware\CanAccesUser;
  *
 */
 
-Route::middleware(CanAccesUser::class)->controller(AuthController::class)->prefix('auth')->group(function () {
-    Route::post('/', 'index'); //las demas rutas etc
+Route::controller(AuthController::class)->prefix('auth')->group(function () {
+    Route::middleware(CanAccesUser::class)->group(function () {
+        Route::post('/', 'index'); //las demas rutas etc
+    });
+    Route::middleware(AuthMiddleware::class)->group(function () {});
 });
 // Route::middleware(CanAccesUser::class)->group(function () {
 //     Route::apiResource('auth', AuthController::class)->names('auth');
