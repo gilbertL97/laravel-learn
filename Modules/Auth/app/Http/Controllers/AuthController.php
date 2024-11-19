@@ -3,16 +3,23 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Auth\Services\UserService;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\AuthService;
+use Modules\Auth\Services\UserService;
 
 class AuthController extends Controller
 {
-    private AuthService $authService;
-    private UserService $userService;
+    private $authService;
+    private $userService;
 
-    public function __construct(UserService $userService, AuthService $authService)
+    //     public function __construct()
+    //     {
+    //       $this->userService = new \Modules\Auth\Services\UserService();
+    //        $this->authService = new $this->authService()
+    // ;
+    //
+    //     }
+    public function __construct(AuthService $authService, UserService $userService)
     {
         $this->userService = $userService;
         $this->authService = $authService;

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\Auth\Http\Middleware\CanAccesUser;
 
 /*
  *--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use Modules\Auth\Http\Controllers\AuthController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('auth', AuthController::class)->names('auth');
+Route::middleware(CanAccesUser::class)->controller(AuthController::class)->prefix('auth')->group(function () {
+    Route::post('/', 'index'); //las demas rutas etc
 });
+// Route::middleware(CanAccesUser::class)->group(function () {
+//     Route::apiResource('auth', AuthController::class)->names('auth');
+// });
