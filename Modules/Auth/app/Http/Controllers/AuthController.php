@@ -3,10 +3,20 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Auth\Services\UserService;
 use Illuminate\Http\Request;
+use Modules\Auth\Services\AuthService;
 
 class AuthController extends Controller
 {
+    private AuthService $authService;
+    private UserService $userService;
+
+    public function __construct(UserService $userService, AuthService $authService)
+    {
+        $this->userService = $userService;
+        $this->authService = $authService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -14,7 +24,7 @@ class AuthController extends Controller
     {
         //
 
-        return response()->json([]);
+        return response()->json($this->userService->saveUser());
     }
 
     /**
