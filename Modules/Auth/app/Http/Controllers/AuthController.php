@@ -3,10 +3,11 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Auth\Http\Requests\LoginUser;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\AuthService;
 use Modules\Auth\Services\UserService;
-use Modules\Auth\app\Http\Requests\LoginUser;
+
 
 
 class AuthController extends Controller
@@ -83,10 +84,7 @@ class AuthController extends Controller
     public function login(LoginUser $request)
     {
         //return response()->json($request->get('name'));
-        $credentials = $request->validate([
-            'name' => 'required',
-            'password' => 'required'
-        ]);
+        $credentials = $request->validated();
 
         $token = auth()->attempt($credentials);
 

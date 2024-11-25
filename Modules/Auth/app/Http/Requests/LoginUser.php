@@ -13,7 +13,7 @@ class LoginUser extends FormRequest
     {
         return [
             'name' => 'required | min:4 | max:25',
-            'password' => 'required  | min:6 | max:100'
+            'password' => 'required  | min:6 | max:100',
         ];
     }
 
