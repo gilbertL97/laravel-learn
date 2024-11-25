@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\AuthService;
 use Modules\Auth\Services\UserService;
+use Modules\Auth\app\Http\Requests\LoginUser;
+
 
 class AuthController extends Controller
 {
@@ -72,5 +74,33 @@ class AuthController extends Controller
         //
 
         return response()->json([]);
+    }
+    public function getUser()
+    {
+        return response()->json(auth()->user());
+    }
+
+    public function login(LoginUser $request)
+    {
+        //return response()->json($request->get('name'));
+        $credentials = $request->validate([
+            'name' => 'required',
+            'password' => 'required'
+        ]);
+
+        $token = auth()->attempt($credentials);
+
+        if (!$token) {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Credenciales incorrectas'
+            ], 401);
+        }
+
+        return response()->json([
+            'token' => $token,
+            'user' => auth()->user(),
+            'expire_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 }
