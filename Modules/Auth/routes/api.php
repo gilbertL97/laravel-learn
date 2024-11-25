@@ -19,6 +19,7 @@ use Modules\Auth\Http\Middleware\CanAccesUser;
 Route::controller(AuthController::class)->prefix('auth')->group(function () {
     Route::middleware(CanAccesUser::class)->group(function () {
         Route::post('/', 'index'); //las demas rutas etc
+        Route::post('/login', 'login');
     });
     Route::middleware(AuthMiddleware::class)->group(function () {});
 });
