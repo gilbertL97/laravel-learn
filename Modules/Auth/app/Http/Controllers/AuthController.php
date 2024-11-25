@@ -4,6 +4,7 @@ namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Auth\Http\Requests\LoginUser;
+use Modules\Auth\Http\Requests\CreateUserFormRequest;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\AuthService;
 use Modules\Auth\Services\UserService;
@@ -34,7 +35,7 @@ class AuthController extends Controller
     {
         //
 
-        return response()->json($this->userService->saveUser());
+        //return response()->json($this->userService->saveUser());
     }
 
     /**
@@ -100,5 +101,12 @@ class AuthController extends Controller
             'user' => auth()->user(),
             'expire_in' => auth()->factory()->getTTL() * 60
         ]);
+    }
+
+    public function createUser(CreateUserFormRequest $request)
+    {
+        $credentials = $request->validated();
+        $user = $this->userService->saveUser($credentials);
+        return response()->json($user, 201);
     }
 }

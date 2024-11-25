@@ -2,6 +2,8 @@
 
 namespace Modules\Auth\Services;
 
+use Modules\Auth\Models\User;
+
 // use Modules\Auth\Models\User;
 
 class UserService
@@ -11,8 +13,9 @@ class UserService
         //
     }
 
-    public function saveUser()
+    public function saveUser($data)
     {
-        return 'Hola Mundo';
+        $data['password'] = bcrypt($data['password']);
+        return User::create($data);
     }
 }

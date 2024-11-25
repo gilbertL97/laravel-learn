@@ -21,7 +21,9 @@ Route::controller(AuthController::class)->prefix('auth')->group(function () {
         Route::post('/', 'index'); //las demas rutas etc
         Route::post('/login', 'login');
     });
-    Route::middleware(AuthMiddleware::class)->group(function () {});
+    Route::middleware(AuthMiddleware::class)->group(function () {
+        Route::post('/user', 'createUser');
+    });
 });
 // Route::middleware(CanAccesUser::class)->group(function () {
 //     Route::apiResource('auth', AuthController::class)->names('auth');
