@@ -77,17 +77,13 @@ class AuthController extends Controller
 
         return response()->json([]);
     }
-    public function getUser()
-    {
-        return response()->json(auth()->user());
-    }
 
     public function login(LoginUser $request)
     {
         //return response()->json($request->get('name'));
         $credentials = $request->validated();
 
-        $token = auth()->attempt($credentials);
+        $token = $this->authService->generateToken($credentials);
 
         if (!$token) {
             return response()->json([
@@ -96,11 +92,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        return response()->json([
-            'token' => $token,
-            'user' => auth()->user(),
-            'expire_in' => auth()->factory()->getTTL() * 60
-        ]);
+        return response()->json($this->authService->handleTokenResponse($token));
     }
 
     public function createUser(CreateUserFormRequest $request)
