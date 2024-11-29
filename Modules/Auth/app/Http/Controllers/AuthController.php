@@ -14,7 +14,6 @@ use Modules\Auth\Services\UserService;
 class AuthController extends Controller
 {
     private $authService;
-    private $userService;
 
     //     public function __construct()
     //     {
@@ -23,9 +22,8 @@ class AuthController extends Controller
     // ;
     //
     //     }
-    public function __construct(AuthService $authService, UserService $userService)
+    public function __construct(AuthService $authService)
     {
-        $this->userService = $userService;
         $this->authService = $authService;
     }
     /**
@@ -93,12 +91,5 @@ class AuthController extends Controller
         }
 
         return response()->json($this->authService->handleTokenResponse($token));
-    }
-
-    public function createUser(CreateUserFormRequest $request)
-    {
-        $credentials = $request->validated();
-        $user = $this->userService->saveUser($credentials);
-        return response()->json($user, 201);
     }
 }
