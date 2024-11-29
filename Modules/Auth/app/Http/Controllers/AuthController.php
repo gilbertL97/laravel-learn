@@ -3,11 +3,10 @@
 namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Auth\Http\Requests\LoginUser;
-use Modules\Auth\Http\Requests\CreateUserFormRequest;
+use Modules\Auth\Http\Requests\LoginUserFormRequest;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\AuthService;
-use Modules\Auth\Services\UserService;
+
 
 
 
@@ -76,7 +75,7 @@ class AuthController extends Controller
         return response()->json([]);
     }
 
-    public function login(LoginUser $request)
+    public function login(LoginUserFormRequest $request)
     {
         //return response()->json($request->get('name'));
         $credentials = $request->validated();
