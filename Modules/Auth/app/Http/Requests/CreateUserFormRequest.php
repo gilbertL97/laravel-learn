@@ -13,7 +13,7 @@ class CreateUserFormRequest extends FormRequest
     {
 
         return [
-            'name' => 'required | min:4 | max:25| unique:users',
+            'name' => 'required |strings | min:4 | max:25| unique:users',
             'email' => 'required | email  | min:6 | max:50 | unique:users',
             'password' => 'required  | min:6 | max:100 | confirmed', // confirmed for password_confirmation
             //'password_confirmation' => 'required  | min:6 | max:100',

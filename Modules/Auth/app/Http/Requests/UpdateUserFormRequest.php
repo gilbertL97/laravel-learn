@@ -13,7 +13,7 @@ class UpdateUserFormRequest extends FormRequest
     {
 
         return [
-            'name' => 'sometimes | min:4 | max:25| unique:users',
+            'name' => 'sometimes |string | min:4 | max:25| unique:users',
             'email' => 'sometimes | email  | min:6 | max:50 | unique:users',
             'password' => 'sometimes | min:6 | max:100 | confirmed', // confirmed for password_confirmation
             //'password_confirmation' => 'required  | min:6 | max:100',
