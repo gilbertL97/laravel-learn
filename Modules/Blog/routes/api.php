@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Blog\Http\Controllers\BlogController;
-
+use Modules\Auth\Http\Middleware\AuthMiddleware;
+use Modules\Auth\Http\Middleware\CanAccesUser;
 /*
  *--------------------------------------------------------------------------
  * API Routes
@@ -14,6 +15,12 @@ use Modules\Blog\Http\Controllers\BlogController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('blog', BlogController::class)->names('blog');
+Route::controller(BlogController::class)->prefix('blog')->group(function () {
+    Route::get('/all-post', 'showAll');
+    Route::get('/posts/{id}', 'showPrevNext')->whereNumber('id');
+    Route::get('/post/{id}', 'show')->whereNumber('id');
+    Route::middleware(AuthMiddleware::class)->group(function () {
+        Route::post('/post', 'store');
+        Route::put('/post', 'edit');
+    });
 });
