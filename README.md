@@ -3,7 +3,9 @@
 
 ![Laravel Version](https://img.shields.io/badge/Laravel-11.x-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**Laravel Learn** es un proyecto educativo que combina dos módulos principales:
+## Laravel Learn
+
+**Es un proyecto que combina dos módulos principales:**
 
 1. **Blog**: Un sistema de gestión de contenido para publicaciones, categorías, etiquetas y comentarios.
 2. **Estadísticas de Partidos de Béisbol**: Un módulo para gestionar equipos, jugadores, partidos y estadísticas relacionadas con el béisbol.
