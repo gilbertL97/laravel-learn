@@ -54,4 +54,12 @@ class UserService
         }
         return $user;
     }
+    protected function makePagination($query, string|array $pagination)
+    {
+        // if (is_string($pagination))
+        $pagination = json_decode($pagination, true);
+        $currentPage = isset($pagination["page"]) ? $pagination["page"] : 1;
+        $pageSize = isset($pagination["pageSize"]) ? $pagination["pageSize"] : $this->model->perPage;
+        return $query->paginate($pageSize, ['*'], 'page', $currentPage);
+    }
 }

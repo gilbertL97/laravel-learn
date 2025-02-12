@@ -1,14 +1,16 @@
 <?php
 
+use App\Exceptions\RecordNotFoundException;
 use App\Models\BaseModel;
 use App\Repositories\BaseRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository implements BaseRepositoryInterface
 {
 
     protected $model;
 
-    public function __construct(BaseModel $model)
+    public function __construct(Model $model)
     {
         $this->model = $model;
     }
@@ -20,7 +22,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->getOrFail($id);
     }
 
     public function create(array $data)
@@ -30,7 +32,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function update($id, array $data)
     {
-        $record = $this->model->find($id);
+        $record = $this->getOrFail($id);
         if ($record) {
             $record->update($data);
             return $record;
@@ -58,9 +60,18 @@ class BaseRepository implements BaseRepositoryInterface
     protected function makePagination($query, string|array $pagination)
     {
         // if (is_string($pagination))
-        // $pagination = json_decode($pagination, true);
+        $pagination = json_decode($pagination, true);
         $currentPage = isset($pagination["page"]) ? $pagination["page"] : 1;
         $pageSize = isset($pagination["pageSize"]) ? $pagination["pageSize"] : $this->model->perPage;
         return $query->paginate($pageSize, ['*'], 'page', $currentPage);
+    }
+
+    public function getOrFail($id)
+    {
+        $registry = $this->model->find($id);
+        if (empty($registry)) {
+            return throw new RecordNotFoundException();
+        }
+        return $registry;
     }
 }
