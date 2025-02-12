@@ -20,7 +20,10 @@ Route::controller(BlogController::class)->prefix('blog')->group(function () {
     Route::get('/posts/{id}', 'showPrevNext')->whereNumber('id');
     Route::get('/post/{id}', 'show')->whereNumber('id');
     Route::middleware(AuthMiddleware::class)->group(function () {
-        Route::post('/post', 'store');
-        Route::put('/post', 'edit');
+        Route::post('/post', 'storePost');
+        Route::put('/post/{id}', 'update')->whereNumber('id');
+        Route::delete('/post{id}', 'destroyPost')->whereNumber('id');
+        Route::post('/category', 'storeCategory');
+        Route::delete('/category/{id}', 'destroyCategory')->whereNumber('id');
     });
 });

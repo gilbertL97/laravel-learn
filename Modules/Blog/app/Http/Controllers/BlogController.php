@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
 
-    public function store(Request $request)
+    public function storePost(Request $request)
     {
         //
     }
-    public function showAll($id) {}
+    public function storeCategory(Request $request)
+    {
+        //
+    }
+    public function showAll(Request $request) {}
     /**
      * Show the specified resource.
      */
@@ -35,7 +39,11 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroyPost($id)
+    {
+        //
+    }
+    public function destroyCategory($id)
     {
         //
     }
