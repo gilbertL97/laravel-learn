@@ -13,13 +13,21 @@ class SeedDefaultAdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
-            'name'     => 'admin',
-            'email'    => 'admin2@example.org',
-            'password' => bcrypt('123456'),
-        ]);
+        // Crear el rol "admin" si no existe
+        $adminRole = Role::firstOrCreate(['name' => 'super-admin']);
 
-        $adminRole = Role::firstOrCreate(['name' => 'admin']);
-        $user->assignRole($adminRole);
+        // Crear o actualizar el usuario administrador
+        $user = User::updateOrCreate(
+            ['name'     => 'admin'], // Condición para buscar
+            [
+                'email' => 'admin2@example.org',
+                'password' => bcrypt('123456'),
+            ]
+        );
+
+        // Asignar el rol "admin" al usuario (si no lo tiene)
+        if (!$user->hasRole('super-admin')) {
+            $user->assignRole($adminRole);
+        }
     }
 }
