@@ -4,9 +4,17 @@ namespace Modules\Auth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Auth\Services\RoleAndPermissionService;
 
-class RoleController extends Controller
+
+class RoleAndPermissionController extends Controller
 {
+
+    private $permisAndRoleService;
+    public function __construct(RoleAndPermissionService $permisAndRoleService)
+    {
+        $this->permisAndRoleService = $permisAndRoleService;
+    }
     /**
      * Display a listing of the resource.
      */

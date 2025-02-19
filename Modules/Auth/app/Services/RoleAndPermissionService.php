@@ -3,11 +3,16 @@
 namespace Modules\Auth\Services;
 
 use App\Exceptions\RecordNotFoundException;
+use App\Service\BaseService;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RoleService
+class RoleAndPermissionService extends BaseService
 {
+    public function __construct()
+    {
+        parent::__construct(new Role());
+    }
     public function handle()
     {
         //
@@ -15,7 +20,7 @@ class RoleService
 
     public function getAllRolesAndPermisionWithoutPagination()
     {
-        $roles = Role::with('permissions')->get();
+        $roles = $this->getRelation('permissions');
         $permissions = Permission::all();
         return response()->json([
             'roles' => $roles,
@@ -24,8 +29,8 @@ class RoleService
     }
     public function getRole($id)
     {
-        $role = Role::findById($id);
+        $role = $this->find($id);
         if (empty($role)) return throw new RecordNotFoundException();
-        return $role;
+        return response()->json($role);
     }
 }
