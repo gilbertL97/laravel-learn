@@ -36,7 +36,7 @@ Route::controller(UserController::class)->prefix('auth')->group(function () {
 });
 Route::controller(RoleAndController::class)->prefix('auth')->group(function () {
     Route::get('/role/{id}', 'getRole')->whereNumber('id')->middleware('permission:update-roles');
-    Route::get('/role', 'getRoles')->middleware('permission:update-roles');
+    Route::get('/role', 'getRolesAndpermission')->middleware('permission:update-roles');
 });
 
 // Route::middleware(CanAccesUser::class)->group(function () {

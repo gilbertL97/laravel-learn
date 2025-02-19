@@ -29,6 +29,12 @@ class RoleAndController extends Controller
         $roles = $this->permisAndRoleService->getAllRole();
         return response()->json($roles, 201);
     }
+    public function getRolesAndpermission()
+    {
+        //
+        $roles = $this->permisAndRoleService->getAllRolesAndPermisionWithoutPagination();
+        return response()->json($roles, 201);
+    }
     /**
      * Store a newly created resource in storage.
      */
