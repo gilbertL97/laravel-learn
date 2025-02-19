@@ -14,73 +14,41 @@ class BaseService
     {
         $this->model = $model;
     }
-
-    /**
-     * Obtener todos los registros con paginación.
-     *
-     * @param int $perPage
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
-    public function paginate($perPage = 15)
-    {
-        return $this->model->paginate($perPage);
-    }
     public function getAll()
     {
         return $this->model->all();
     }
-    /**
-     * Crear un nuevo registro.
-     *
-     * @param array $data
-     * @return Model
-     */
     public function create(array $data): Model
     {
         return $this->model->create($data);
     }
 
-    /**
-     * Actualizar un registro existente.
-     *
-     * @param Model $model
-     * @param array $data
-     * @return bool
-     */
     public function update(Model $model, array $data): bool
     {
         return $model->update($data);
     }
-
-    /**
-     * Eliminar un registro.
-     *
-     * @param Model $model
-     * @return bool
-     */
     public function delete(Model $model): bool
     {
         return $model->delete();
     }
 
-    /**
-     * Buscar un registro por su ID.
-     *
-     * @param int $id
-     * @return Model|null
-     */
+
     public function find($id): ?Model
     {
         return $this->model->find($id);
     }
 
+    public function getRelation(string $relation)
+    {
+        return $this->model->with($relation)->get();
+    }
+    public function paginate($perPage = 15)
+    {
+        return $this->model->paginate($perPage);
+    }
 
-    /**
-     * Aplicar filtros a la consulta.
-     *
-     * @param array $filters
-     * @return Builder
-     */
+
+
     public function applyFilters(array $filters): Builder
     {
         $query = $this->model->query();
@@ -106,7 +74,6 @@ class BaseService
     public function applyFiltersWithPagination(array $filters, PaginationDTO $paginationDto)
     {
         $query = $this->model->query();
-
 
         $filter = $this->filterQuery($filters, $query);
         return $this->paginationQuery($filter, $paginationDto);
