@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +25,10 @@ class BaseService
     {
         return $this->model->paginate($perPage);
     }
-
+    public function getAll()
+    {
+        return $this->model->all();
+    }
     /**
      * Crear un nuevo registro.
      *
