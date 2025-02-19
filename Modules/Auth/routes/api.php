@@ -25,11 +25,11 @@ Route::controller(AuthController::class)->prefix('auth')->group(function () {
 });
 Route::controller(UserController::class)->prefix('auth')->group(function () {
     Route::middleware(AuthMiddleware::class)->group(function () {
-        Route::post('/user', 'store');
-        Route::get('/user/{id}', 'show')->whereNumber('id');
-        Route::get('/user', 'index');
-        Route::patch('/user/{id}', 'update')->whereNumber('id');
-        Route::delete('/user/{id}', 'destroy')->whereNumber('id');
+        Route::post('/user', 'store')->middleware('permission:create-users');
+        Route::get('/user/{id}', 'show')->whereNumber('id')->middleware('permission:read-users');
+        Route::get('/user', 'index')->middleware('permission:read-users');
+        Route::patch('/user/{id}', 'update')->whereNumber('id')->middleware('permission:update-users');
+        Route::delete('/user/{id}', 'destroy')->whereNumber('id')->middleware('permission:delete-users');
     });
 });
 // Route::middleware(CanAccesUser::class)->group(function () {
