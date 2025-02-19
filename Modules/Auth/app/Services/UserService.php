@@ -21,28 +21,27 @@ class UserService extends BaseService
     public function getOneUser($id)
     {
         $user = $this->getUser($id);
-        return response()->json($user);
+        return $user;
     }
 
 
     public function saveUser($data)
     {
         $data['password'] = bcrypt($data['password']);
-        $user = $this->create($data);
-        return  response()->json($user, 201);
+        return $this->create($data);
     }
     public function updateUser($id, $data)
     {
         $user = $this->getUser($id);
         if ($user->update($data)) {
-            return response()->json($user, 200);
+            return $user;
         };
     }
     public function deleteUser($id)
     {
         $user = $this->getUser($id);
         if ($user->delete()); {
-            return response()->json([], 200);
+            return true;
         }
     }
     public function getAllUsers()
