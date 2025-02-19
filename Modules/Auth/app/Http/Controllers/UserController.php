@@ -35,7 +35,7 @@ class UserController extends Controller
     {
         $credentials = $request->validated();
         $user = $this->userService->saveUser($credentials);
-        return $user;
+        return response()->json($user, 201);
     }
 
     /**
@@ -43,8 +43,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = $this->userService->getUser($id);
-        return $user;
+        $user = $this->userService->getOneUser($id);
+        return response()->json($user, 201);
     }
 
     /**
@@ -54,7 +54,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $user = $this->userService->updateUser($id, $data);
-        return $user;
+        return response()->json($user, 201);
     }
 
     /**
@@ -64,6 +64,6 @@ class UserController extends Controller
     {
         //
         $user = $this->userService->deleteUser($id);
-        return $user;
+        return response()->json($user, 201);;
     }
 }
