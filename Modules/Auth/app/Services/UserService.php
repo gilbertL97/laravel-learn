@@ -3,12 +3,17 @@
 namespace Modules\Auth\Services;
 
 use App\Exceptions\RecordNotFoundException;
+use App\Service\BaseService;
 use Modules\Auth\Models\User;
 
 // use Modules\Auth\Models\User;
 
-class UserService
+class UserService extends BaseService
 {
+    public function __construct()
+    {
+        parent::__construct(new User());
+    }
     public function handle()
     {
         //
@@ -23,7 +28,7 @@ class UserService
     public function saveUser($data)
     {
         $data['password'] = bcrypt($data['password']);
-        $user = User::create($data);
+        $user = $this->create($data);
         return  response()->json($user, 201);
     }
     public function updateUser($id, $data)
@@ -42,24 +47,16 @@ class UserService
     }
     public function getAllUsers()
     {
-        $users = User::all();
+        $users = $this->getAll();
         return response()->json($users);
     }
     public function getAllUsersWithPagination() {}
     public function getUser($id)
     {
-        $user = User::find($id);
+        $user = $this->find($id);
         if (empty($user)) {
             return throw new RecordNotFoundException();
         }
         return $user;
-    }
-    protected function makePagination($query, string|array $pagination)
-    {
-        // if (is_string($pagination))
-        $pagination = json_decode($pagination, true);
-        $currentPage = isset($pagination["page"]) ? $pagination["page"] : 1;
-        $pageSize = isset($pagination["pageSize"]) ? $pagination["pageSize"] : $this->model->perPage;
-        return $query->paginate($pageSize, ['*'], 'page', $currentPage);
     }
 }
