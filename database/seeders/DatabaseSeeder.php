@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Modules\Auth\Database\Seeders\RolePermissionSeeder;
 use Modules\Auth\Database\Seeders\SeedDefaultAdminUserSeeder;
+use Modules\Auth\Database\Seeders\SeedDeletAdminRoleSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class,
             SeedDefaultAdminUserSeeder::class,
+            SeedDeletAdminRoleSeeder::class,
 
         ]);
     }
