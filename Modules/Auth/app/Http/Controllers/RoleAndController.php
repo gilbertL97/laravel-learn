@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\RoleAndPermissionService;
 
-
-class RoleAndPermissionController extends Controller
+class RoleAndController extends Controller
 {
 
     private $permisAndRoleService;
@@ -18,17 +17,22 @@ class RoleAndPermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getRole($id)
     {
         //
-
-        return response()->json([]);
+        $role = $this->permisAndRoleService->getRole($id);
+        return response()->json($role, 201);
     }
-
+    public function getRoles()
+    {
+        //
+        $roles = $this->permisAndRoleService->getAllRole();
+        return response()->json($roles, 201);
+    }
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function createRole(Request $request)
     {
         //
 
@@ -38,7 +42,7 @@ class RoleAndPermissionController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function getPermission($id)
     {
         //
 
@@ -48,7 +52,7 @@ class RoleAndPermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function updateRoles(Request $request, $id)
     {
         //
 
@@ -58,7 +62,7 @@ class RoleAndPermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function deleteRole($id)
     {
         //
 

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\Auth\Http\Controllers\RoleAndController;
+use Modules\Auth\Http\Controllers\RoleAndPermissionController;
 use Modules\Auth\Http\Controllers\UserController;
 use Modules\Auth\Http\Middleware\AuthMiddleware;
 use Modules\Auth\Http\Middleware\CanAccesUser;
@@ -32,6 +34,11 @@ Route::controller(UserController::class)->prefix('auth')->group(function () {
         Route::delete('/user/{id}', 'destroy')->whereNumber('id')->middleware('permission:delete-users');
     });
 });
+Route::controller(RoleAndController::class)->prefix('auth')->group(function () {
+    Route::get('/role/{id}', 'getRole')->whereNumber('id')->middleware('permission:update-roles');
+    Route::get('/role', 'getRoles')->middleware('permission:update-roles');
+});
+
 // Route::middleware(CanAccesUser::class)->group(function () {
 //     Route::apiResource('auth', AuthController::class)->names('auth');
 // });
